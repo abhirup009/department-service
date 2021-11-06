@@ -20,11 +20,11 @@ class LobbyUtils(
     private val eurekaClient: EurekaClient
 ) {
     private val lobbyEndpointDetails = eurekaClient
-        .getApplication("LOBBY-SERVICE")
+        .getApplication(departmentConfig.getProperty("backend.external-endpoints.service-names.lobby").toString())
         .instances[0]
 
     private val lobbyEndpointPrefix = lobbyEndpointDetails.homePageUrl
-    private val lobbyEndpointSuffix = departmentConfig.getProperty("backend.external-endpoints.lobby")
+    private val lobbyEndpointSuffix = departmentConfig.getProperty("backend.external-endpoints.default")
 
     private val lobbyEndpoint = "$lobbyEndpointPrefix/$lobbyEndpointSuffix"
 

@@ -10,8 +10,12 @@ class SecurityManager(
     private val lobbyUtils: LobbyUtils
 ) {
     fun checkUserValidity(prospectiveUserId: String): Boolean =
-        lobbyUtils.getProspectiveUser(prospectiveUserId = prospectiveUserId)
-            .let {
-                true
-            }
+        try {
+            lobbyUtils.getProspectiveUser(prospectiveUserId = prospectiveUserId)
+                .let {
+                    true
+                }
+        } catch (e: Exception) {
+            throw SecurityException("Invalid userId: $prospectiveUserId passed in header.")
+        }
 }
