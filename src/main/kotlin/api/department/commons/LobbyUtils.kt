@@ -15,18 +15,12 @@ import org.springframework.stereotype.Component
 @Component
 class LobbyUtils(
     private val departmentConfig: Environment,
-    private val objectMapper: ObjectMapper,
-    @Lazy
-    private val eurekaClient: EurekaClient
+    private val objectMapper: ObjectMapper
 ) {
-    private val lobbyEndpointDetails = eurekaClient
-        .getApplication(departmentConfig.getProperty("backend.external-endpoints.service-names.lobby").toString())
-        .instances[0]
-
-    private val lobbyEndpointPrefix = lobbyEndpointDetails.homePageUrl
+    private val apiGatewayEndpoint = departmentConfig.getProperty("backend.external-endpoints.api-gateway")
     private val lobbyEndpointSuffix = departmentConfig.getProperty("backend.external-endpoints.default")
 
-    private val lobbyEndpoint = "$lobbyEndpointPrefix/$lobbyEndpointSuffix"
+    private val lobbyEndpoint = "$apiGatewayEndpoint$lobbyEndpointSuffix"
 
     val lobbyClient: HttpLobbyClient = Feign.builder()
         .encoder(JacksonEncoder(objectMapper))
