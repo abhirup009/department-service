@@ -101,6 +101,8 @@ dependencies {
 	implementation("io.github.openfeign:feign-okhttp:$openFeignVersion")
 	implementation("io.github.openfeign.form:feign-form:$feignFormVersion")
 	implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-server")
+	implementation("org.springframework.cloud:spring-cloud-sleuth-zipkin")
+	implementation("org.springframework.cloud:spring-cloud-starter-sleuth")
 	jooqGeneratorRuntime("org.postgresql:postgresql:$postgreSqlJdbcVersion")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
